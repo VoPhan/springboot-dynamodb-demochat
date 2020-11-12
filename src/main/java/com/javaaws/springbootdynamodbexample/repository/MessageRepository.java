@@ -25,6 +25,7 @@ public class MessageRepository {
 
     public Message sendMessage(Message message){
         message.setCreated_time(LocalDateTime.now().toString());
+        message.setId(LocalDateTime.now().toString());
         mapper.save(message);
         return message;
     }
