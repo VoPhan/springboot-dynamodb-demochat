@@ -29,12 +29,11 @@ public class MessageRepository {
         return message;
     }
 
-    public List<Message> getMessage(String id_send, String id_recived){
+    public List<Message> getMessage(String id_recived){
         Map<String, AttributeValue> eav = new HashMap<>();
-        eav.put(":val1", new AttributeValue().withS(id_send));
         eav.put(":val2", new AttributeValue().withS(id_recived));
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("id_send = :val1 and id_recived = :val2").withLimit(25).withExpressionAttributeValues(eav);
+                .withFilterExpression("id_recived = :val2").withLimit(25).withExpressionAttributeValues(eav);
         ScanResultPage<Message> latestReplies = mapper.scanPage(Message.class, scanExpression);
 
         return latestReplies.getResults();
