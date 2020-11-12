@@ -22,8 +22,8 @@ public class SpringbootDynamodbExampleApplication {
     }
 
     @PostMapping("/findMessage")
-    public List<Message> getMessage(@RequestBody String id_send, @RequestBody String id_recived){
-        return repository.getMessage(id_send,id_recived);
+    public List<Message> getMessage(@RequestBody String id_recived){
+        return repository.getMessage(id_recived);
     }
 
     public static void main(String[] args) {
