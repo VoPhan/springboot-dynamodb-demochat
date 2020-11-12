@@ -34,10 +34,10 @@ public class MessageRepository {
         eav.put(":val1", new AttributeValue().withS(id_send));
         eav.put(":val2", new AttributeValue().withS(id_recived));
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("id_send = :val1 and id_recived = :val2").withExpressionAttributeValues(eav);
-        List<Message> latestReplies = mapper.scan(Message.class, scanExpression);
+                .withFilterExpression("id_send = :val1 and id_recived = :val2").withLimit(25).withExpressionAttributeValues(eav);
+        ScanResultPage<Message> latestReplies = mapper.scanPage(Message.class, scanExpression);
 
-        return latestReplies;
+        return latestReplies.getResults();
     }
 
     private DynamoDBSaveExpression buildExpression(Message message){
